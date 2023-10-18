@@ -52,7 +52,7 @@ char **split_string(char *buffer, char *del)
 	char *token;/*takes one by one*/
 	int i = 0;/*index to traverse all the tokens*/
 
-	tokens = malloc(sizeof(char*) * 1024);/*alloate memory to the tokens*/
+	tokens = malloc(sizeof(char *) * 1024);/*alloate memory to the tokens*/
 	token = strtok(buffer, del);/*tokenize*/
 	while (token)
 	{
@@ -66,15 +66,15 @@ char **split_string(char *buffer, char *del)
 
 int main(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
-
-	char *buffer = NULL; /*buffer*/
+	char *buffer; /*buffer*/
 	size_t buffer_size;/*buffer size*/
 	char *cmd; /*command to be stored*/
 	char **args;/*arguments*/
 	pid_t pid;/*process to be forked*/
 	int status, n_chars;
+
+	(void)ac;
+	(void)av;
 
 	while (1)
 	{
