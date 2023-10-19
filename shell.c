@@ -43,14 +43,10 @@ char *get_cmmd(char *cmmd)
 		strcat(cmd_full, "/");/*pate / to the command path*/
 		strcat(cmd_full, cmmd);/*paste the command of the user to the command path */
 		if (stat(cmd_full, &st) == 0)/*the command path exists or not*/
-		{
-			free (path);
 			return (cmd_full);/*if yes, returns the path*/
-		}
 		free(cmd_full);/*otherwise frees the command path*/
 		token = strtok(NULL, ":");/*continues again*/
 	}
-	free(path);
 	return (NULL);/*in case the command is not found*/
 }
 
@@ -62,10 +58,21 @@ char **split_string(char *buffer, char *del)
 	int i = 0;/*index to traverse all the tokens*/
 
 	tokens = malloc(sizeof(char *) * 1024);/*alloate memory to the tokens*/
+	if (tokens == NULL)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
 	token = strtok(buffer, del);/*tokenize*/
 	while (token)
 	{
-		tokens[i] = token;/*will put token in the first index of the array of tokens*/
+		tokens[i] = strdup(token);/*will put token in the first index of the array of tokens*/
+		if (tokens[i] == NULL)
+		{
+			perror("strdup");
+			exit(EXIT_FAILURE);
+		}
 		token = strtok(NULL, del);/*the new token*/
 		i++;
 	}
@@ -91,18 +98,15 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		write(1, "$ ", 2);/*prints the prompt*/
+		fflush(stdout);
 		n_chars = getline(&buffer, &buffer_size, stdin);/*reads input from user*/
 		if (n_chars == -1)
 		{
 			write(1, "\n", 1);/*write a new line and exits*/
 			exit(1);
 		}
+		buffer[strcspn(buffer, "\n")] = '\0';
 		args = split_string(buffer, " \t\n");/*tokenized*/
-		if (strcmp(args[0], "exit") == 0)/*if first input is exit*/
-		{
-			free(args);
-			exit(0);
-		}
 		pid = fork();/*create child process*/
 		if (pid == 0)/*if child process*/
 		{
@@ -110,7 +114,6 @@ int main(int ac, char **av, char **env)
 			if (cmd)/*if command exist, then execute it*/
 			{
 				execve(cmd, args, env);
-				free(cmd);
 			}
 			else
 			{
