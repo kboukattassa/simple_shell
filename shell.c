@@ -30,6 +30,11 @@ char *get_cmmd(char *cmmd)
 	char *cmd_full;/*the full path of the command to be returned*/
 	struct stat st;/*check if the fun exists or no*/
 
+	if (strchr(cmmd, '/') != NULL)
+	{
+		return (strdup(cmmd));
+	}
+
 	token = strtok(path, ":");/*tokenize the string*/
 	while (token)
 	{
@@ -38,10 +43,14 @@ char *get_cmmd(char *cmmd)
 		strcat(cmd_full, "/");/*pate / to the command path*/
 		strcat(cmd_full, cmmd);/*paste the command of the user to the command path */
 		if (stat(cmd_full, &st) == 0)/*the command path exists or not*/
+		{
+			free (path);
 			return (cmd_full);/*if yes, returns the path*/
+		}
 		free(cmd_full);/*otherwise frees the command path*/
 		token = strtok(NULL, ":");/*continues again*/
 	}
+	free(path);
 	return (NULL);/*in case the command is not found*/
 }
 
@@ -76,6 +85,9 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 
+	buffer = NULL;
+	buffer_size = 0;
+
 	while (1)
 	{
 		write(1, "$ ", 2);/*prints the prompt*/
@@ -87,19 +99,30 @@ int main(int ac, char **av, char **env)
 		}
 		args = split_string(buffer, " \t\n");/*tokenized*/
 		if (strcmp(args[0], "exit") == 0)/*if first input is exit*/
+		{
+			free(args);
 			exit(0);
+		}
 		pid = fork();/*create child process*/
 		if (pid == 0)/*if child process*/
 		{
 			cmd = get_cmmd(args[0]);/*the command written by the user*/
 			if (cmd)/*if command exist, then execute it*/
+			{
 				execve(cmd, args, env);
+				free(cmd);
+			}
 			else
+			{
 				printf("command not found\n");
+			}
 			exit(0);
 		}
 		else/*if parent, then wait for child to finish*/
+		{
 			wait(&status);
+		}
+		free(args);
 	}
 	return (0);
 
