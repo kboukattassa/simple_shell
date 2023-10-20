@@ -22,8 +22,11 @@ int main(int ac, char **av, char **env)
 
 	while (1)
 	{
-		write(1, "$ ", 2);/*prints the prompt*/
-		fflush(stdout);
+		if (isatty(STDIN_FILENO) == 1)
+		{
+			write(1, "$ ", 2);/*prints the prompt*/
+			fflush(stdout);
+		}
 		n_read = getline(&buff, &buff_size, stdin);/*reads input from user*/
 		if (n_read == -1)
 		{
@@ -40,7 +43,7 @@ int main(int ac, char **av, char **env)
 				execve(cmd, args, env);
 			else
 				printf("command not found\n");
-			exit(0);
+			exit(EXIT_SUCCESS);
 		}
 		else/*if parent, then wait for child to finish*/
 			wait(&status);
