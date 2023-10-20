@@ -33,7 +33,7 @@ int main(int ac, char **av, char **env)
 			write(1, "\n", 1);/*write a new line and exits*/
 			exit(1);
 		}
-		buff[strcspn(buff, "\n")] = '\0';
+		buff[cspnstr(buff, "\n")] = '\0';
 		args = split_string(buff, " \t\n");/*tokenized*/
 		c_pid = fork();/*create child process*/
 		if (c_pid == 0)/*if child process*/
@@ -42,7 +42,7 @@ int main(int ac, char **av, char **env)
 			if (cmd)/*if command exist, then execute it*/
 				execve(cmd, args, env);
 			else
-				printf("command not found\n");
+				brint("command not found\n");
 			exit(EXIT_SUCCESS);
 		}
 		else/*if parent, then wait for child to finish*/

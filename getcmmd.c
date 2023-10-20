@@ -12,18 +12,18 @@ char *get_cmmd(char *comm)
 	char *com_ful_path;
 	struct stat st;
 
-	if (strchr(comm, '/') != NULL)
+	if (chrstr(comm, '/') != NULL)
 	{
-		return (strdup(comm));
+		return (dupstr(comm));
 	}
 
 	tokken = strtok(path, ":");
 	while (tokken)
 	{
-		com_ful_path = malloc(strlen(tokken) + strlen(comm) + 2);
-		strcpy(com_ful_path, tokken);
-		strcat(com_ful_path, "/");
-		strcat(com_ful_path, comm);
+		com_ful_path = malloc(len_of_str(tokken) + len_of_str(comm) + 2);
+		copy_of_string(com_ful_path, tokken);
+		catstr(com_ful_path, "/");
+		catstr(com_ful_path, comm);
 		if (stat(com_ful_path, &st) == 0)
 			return (com_ful_path);
 		free(com_ful_path);

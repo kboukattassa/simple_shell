@@ -16,7 +16,7 @@ char **split_string(char *buff, char *deli)
 	tokken = strtok(buff, deli);
 	while (tokken)
 	{
-		tokkens[i] = strdup(tokken);
+		tokkens[i] = dupstr(tokken);
 		if (tokkens[i] == NULL)
 		{
 			perror("strdup");

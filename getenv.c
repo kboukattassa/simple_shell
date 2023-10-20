@@ -13,7 +13,7 @@ char *g_envi(const char *ev_varia)
 	while (environ[i])
 	{
 		keyy = strtok(environ[i], "=");
-		if (strcmp(ev_varia, keyy) == 0)
+		if (cmpstr(ev_varia, keyy) == 0)
 			return (strtok(NULL, "\n"));/*if yes, continue*/
 		i++;
 	}
