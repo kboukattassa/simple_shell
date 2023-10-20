@@ -10,8 +10,10 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
+extern char **environ;
+
 /* Prototypes */
-void d_prompt(void);
-void read_in(char *cmd, size_t size);
-void exe_cmd(const char *cmd);
+char *g_envi(const char *ev_varia);
+char *get_cmmd(char *comm);
+char **split_string(char *buff, char *deli);
 #endif
