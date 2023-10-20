@@ -6,7 +6,7 @@
  * @env: environ
  * Return: return
  */
-int main(int ac __attribute__((unused)), char **av __attribute__((unused)), char **env)
+int main(int ac, char **av, char **env)
 {
 	char *buff;
 	char *cmd;
@@ -15,6 +15,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)), char
 	pid_t c_pid;/*process to be forked*/
 	int status, n_read;
 
+	(void)ac;
+	(void)av;
 	buff = NULL;
 	buff_size = 0;
 
@@ -42,7 +44,6 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)), char
 		}
 		else/*if parent, then wait for child to finish*/
 			wait(&status);
-		free(buff);
 	}
 	return (0);
 }

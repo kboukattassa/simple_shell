@@ -29,6 +29,5 @@ char *get_cmmd(char *comm)
 		free(com_ful_path);
 		tokken = strtok(NULL, ":");
 	}
-	free(tokken);
 	return (NULL);
 }
