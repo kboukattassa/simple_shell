@@ -31,6 +31,7 @@ int main(int ac, char **av, char **env)
 		if (n_read == -1)
 		{
 			write(1, "\n", 1);/*write a new line and exits*/
+			free(buff);
 			exit(1);
 		}
 		buff[cspnstr(buff, "\n")] = '\0';
@@ -40,13 +41,19 @@ int main(int ac, char **av, char **env)
 		{
 			cmd = get_cmmd(args[0]);/*the command written by the user*/
 			if (cmd)/*if command exist, then execute it*/
-				execve(cmd, args, env);
+				{
+					execve(cmd, args, env);
+				}
 			else
-				brint("command not found\n");
-			exit(EXIT_SUCCESS);
+				{
+					brint("command not found\n");
+					exit(EXIT_SUCCESS);
+				}
 		}
 		else/*if parent, then wait for child to finish*/
 			wait(&status);
+		free(buff);
+		free(args);
 	}
 	return (0);
 }
