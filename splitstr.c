@@ -16,6 +16,13 @@ char **split_string(char *buff, char *deli)
 		return (NULL);
 	temp = dupstr(buff);
 	tokken = strtok(temp, deli);
+
+	if (tokken == NULL)
+	{
+		free(buff), buff = NULL;
+		free(temp), temp = NULL;
+		return (NULL);
+	}
 	while (tokken)
 	{
 		count++;
@@ -26,7 +33,7 @@ char **split_string(char *buff, char *deli)
 	tokkens = malloc(sizeof(char *) * (count + 1));
 	if (!tokkens)
 	{
-		free(buff);
+		free(buff), buff = NULL;
 		return (NULL);
 	}
 	tokken = strtok(buff, deli);

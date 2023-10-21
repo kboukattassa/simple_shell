@@ -47,6 +47,7 @@ int main(int ac, char **av, char **env)
 			else
 				{
 					brint("command not found\n");
+					free(args);
 					exit(EXIT_SUCCESS);
 				}
 		}
