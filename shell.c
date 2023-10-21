@@ -8,17 +8,15 @@
  */
 int main(int ac, char **av, char **env)
 {
-	char *buff;
+	char *buff = NULL;
 	char *cmd;
 	char **args;
-	size_t buff_size;/*buffer size*/
+	size_t buff_size = 0;/*buffer size*/
 	pid_t c_pid;/*process to be forked*/
 	int status, n_read;
 
 	(void)ac;
 	(void)av;
-	buff = NULL;
-	buff_size = 0;
 
 	while (1)
 	{
@@ -31,7 +29,6 @@ int main(int ac, char **av, char **env)
 		if (n_read == -1)
 		{
 			write(1, "\n", 1);/*write a new line and exits*/
-			free(buff);
 			exit(1);
 		}
 		buff[cspnstr(buff, "\n")] = '\0';
@@ -47,7 +44,6 @@ int main(int ac, char **av, char **env)
 			else
 				{
 					brint("command not found\n");
-					free(args);
 					exit(EXIT_SUCCESS);
 				}
 		}
