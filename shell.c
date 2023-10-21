@@ -17,7 +17,6 @@ int main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
@@ -36,20 +35,17 @@ int main(int ac, char **av, char **env)
 		c_pid = fork();/*create child process*/
 		if (c_pid == 0)/*if child process*/
 		{
-			cmd = get_cmmd(args[0]);/*the command written by the user*/
-			if (cmd)/*if command exist, then execute it*/
-				{
-					execve(cmd, args, env);
-				}
+			cmd = get_cmmd(args[0]);
+			if (cmd)
+				execve(cmd, args, env);
 			else
-				{
-					brint("command not found\n");
-					exit(EXIT_SUCCESS);
-				}
+			{
+				brint("command not found\n");
+				exit(EXIT_SUCCESS);
+			}
 		}
 		else/*if parent, then wait for child to finish*/
 			wait(&status);
-		free(args);
 	}
 	return (0);
 }

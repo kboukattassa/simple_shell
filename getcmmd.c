@@ -26,7 +26,7 @@ char *get_cmmd(char *comm)
 		catstr(com_ful_path, comm);
 		if (stat(com_ful_path, &st) == 0)
 			return (com_ful_path);
-		free(com_ful_path);
+		free(com_ful_path), com_ful_path = NULL;
 		tokken = strtok(NULL, ":");
 	}
 	return (NULL);

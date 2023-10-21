@@ -12,11 +12,8 @@ char **split_string(char *buff, char *deli)
 	char *tokken = NULL, *temp = NULL;
 	int i = 0, count = 0;
 
-	if (!buff)
-		return (NULL);
 	temp = dupstr(buff);
 	tokken = strtok(temp, deli);
-
 	if (tokken == NULL)
 	{
 		free(buff), buff = NULL;
