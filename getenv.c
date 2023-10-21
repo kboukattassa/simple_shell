@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * g_envi - gets the path and returns it
  * @ev_varia: environment var

@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * get_cmmd - gets the full path of the command typed by the user
  * @comm: The command typed by the user

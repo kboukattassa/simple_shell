@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * cspnstr - iterates through two stirngs
  * @s: string

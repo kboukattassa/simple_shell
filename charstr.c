@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * chrstr - locates a char
  * @s: string

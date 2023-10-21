@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * dupstr - duplicates a string
  * @str: String to be copied

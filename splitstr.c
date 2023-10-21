@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * split_string - split the input into commands and args
  * @buff: buffer

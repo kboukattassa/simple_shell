@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * copy_of_string - copies string
  * @dest: Destination to copy into

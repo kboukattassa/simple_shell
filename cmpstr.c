@@ -1,4 +1,4 @@
-#include "sshell.h"
+#include "shell.h"
 /**
  * cmpstr - Compares two strings
  * @str1: string to compare n1
