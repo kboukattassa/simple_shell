@@ -18,7 +18,7 @@ char *get_cmmd(char *comm);
 char **split_string(char *buff, char *deli);
 void brint(char *message);
 char *catstr(char *dest, char *src);
-char *chrstr(char *s, char c);
+char *chrstr(const char *s, char c);
 int cmpstr(const char *str1, const char *str2);
 char *copy_of_string(char *dest, char *src);
 size_t cspnstr(const char *s, const char *reject);

@@ -52,7 +52,6 @@ int main(int ac, char **av, char **env)
 		}
 		else/*if parent, then wait for child to finish*/
 			wait(&status);
-		free(buff);
 		free(args);
 	}
 	return (0);

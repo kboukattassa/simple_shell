@@ -8,11 +8,27 @@
  */
 char **split_string(char *buff, char *deli)
 {
-	char **tokkens;
-	char *tokken;
-	int i = 0;
+	char **tokkens = NULL;
+	char *tokken = NULL, *temp = NULL;
+	int i = 0, count = 0;
 
-	tokkens = malloc(sizeof(char *) * 1024);
+	if (!buff)
+		return (NULL);
+	temp = dupstr(buff);
+	tokken = strtok(temp, deli);
+	while (tokken)
+	{
+		count++;
+		tokken = strtok(NULL, deli);
+	}
+	free(temp), temp = NULL;
+
+	tokkens = malloc(sizeof(char *) * (count + 1));
+	if (!tokkens)
+	{
+		free(buff);
+		return (NULL);
+	}
 	tokken = strtok(buff, deli);
 	while (tokken)
 	{
@@ -25,6 +41,7 @@ char **split_string(char *buff, char *deli)
 		tokken = strtok(NULL, deli);
 		i++;
 	}
+	free(buff), buff = NULL;
 	tokkens[i] = NULL;
 	return (tokkens);
 }
